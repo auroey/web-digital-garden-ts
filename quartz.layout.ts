@@ -7,10 +7,12 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [],
   footer: Component.Footer({
-    links: {}, // 空对象，不显示任何链接
+    links: {
+      GitHub: "https://github.com/auroey/notes",
+      Email: "zy181982414@gmail.com",
+    },
   }),
 }
-
 
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
