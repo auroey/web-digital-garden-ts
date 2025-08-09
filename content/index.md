@@ -1,6 +1,22 @@
 ---
-title: Welcome to Quartz
+title: 我的数字花园
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+# 欢迎来到我的数字花园 🌱
+
+这是我的个人知识库，使用 Quartz 构建。
+
+## 最近更新
+
+- [[我的第一篇笔记]] - 双链笔记的入门示例
+- [[JavaScript基础]] - 编程学习笔记
+- [[学习计划]] - 我的学习规划
+
+## 开始探索
+
+通过双链导航，你可以：
+1. 点击任何 `[[链接]]` 跳转到相关页面
+2. 查看页面右侧的反向链接
+3. 使用图谱视图查看知识网络
+
+探索从这里开始：[[我的第一篇笔记]]
