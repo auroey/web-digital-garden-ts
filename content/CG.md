@@ -1,3 +1,7 @@
+﻿---
+title: CG
+date: 2025-08-11
+---
 [什么是计算机图形学](http://staff.ustc.edu.cn/~lgliu/Resources/CG/What_is_CG.htm)
 [高引论文](https://www.zhihu.com/question/361604494/answer/952054338?utm_campaign=shareopn&utm_content=group2_Answer&utm_medium=social&utm_psn=1840361831090245632&utm_source=wechat_session)
 [入门路线](https://www.zhihu.com/question/41468803/answer/1322562695?utm_campaign=shareopn&utm_content=group1_Answer&utm_medium=social&utm_psn=1840362301481418753&utm_source=wechat_session)

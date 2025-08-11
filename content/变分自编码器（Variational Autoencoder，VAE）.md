@@ -1,3 +1,7 @@
+﻿---
+title: 变分自编码器（Variational Autoencoder，VAE）
+date: 2025-08-11
+---
 [变分自编码器可视化解释\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1D54reZE2g?spm_id_from=333.788.videopod.sections&vd_source=8be5ba4fcf7c69b9960ed391f70c5fb0)
 
 ### 1. 什么是变分自编码器？

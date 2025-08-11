@@ -1,3 +1,7 @@
+﻿---
+title: 3D Gaussian Splatting 算法部件及流程简介
+date: 2025-08-11
+---
 # 3D Gaussian Splatting 算法部件及流程简介
 
 ![image-20250110094646830](C:\Users\10543\AppData\Roaming\Typora\typora-user-images\image-20250110094646830.png)
