@@ -1,5 +1,5 @@
 ---
-title: MMdDA
+title: MMaDA
 date: 2025-08-13
 ---
 ### Loss
