@@ -1,112 +1,230 @@
-﻿---
+---
 title: 变分自编码器（Variational Autoencoder，VAE）
 date: 2025-08-11
 ---
-[变分自编码器可视化解释\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1D54reZE2g?spm_id_from=333.788.videopod.sections&vd_source=8be5ba4fcf7c69b9960ed391f70c5fb0)
+[[生成模型]]
 
-### 1. 什么是变分自编码器？
+### VAE
 
-变分自编码器（VAE）是一种生成模型，它结合了深度学习和贝叶斯推断的思想。与传统的自编码器（Autoencoder）不同，VAE 不仅仅学习输入数据的压缩表示，更重要的是，它学习数据的潜在（latent）概率分布。这意味着 VAE 能够**生成**与训练数据相似的全新样本，而不仅仅是重构输入。它通过在潜在空间中引入噪声和正则化，使得潜在表示更具连续性和可插值性，从而实现更平滑、更有意义的数据生成。
+https://adaning.github.io/posts/9047.html
 
-### 2. VAE 的核心思想与组成部分
+![](https://pq01uwab7j.feishu.cn/space/api/box/stream/download/asynccode/?code=NDJjNTdiOWJjYTQ0MWE5YTg1MjE0MTM0MjU3MGIyOWZfRDh1YTQ1MFhvOE45YWlRMWFHT0hGWWJGbkJVRXJhV09fVG9rZW46SEptdGJUbkpBb3NDOHl4NEpEbGNtb2phblBjXzE3NTUwNTQ4MDc6MTc1NTA1ODQwN19WNA)
 
-VAE 的核心思想是将数据生成过程建模为一个概率过程，其中数据 x 是由一些不可观测的潜在变量 z 生成的。VAE 的主要组成部分包括：
+x_n是**一个输入数据**的第n个维度的信息表示，a是权重，miu和sigma合在一起共同表示一个压缩后的维度。解压缩的过程是以z_n为参数盲猜output各个维度，这个盲猜的路径由训练好的a决定。
 
-- **编码器 (Encoder)**：
-    
-    - 作用：将输入数据 x 映射到一个潜在空间。
-        
-    - 与传统自编码器不同，VAE 的编码器不直接输出潜在向量 z，而是输出潜在分布的**参数**，通常是均值 μ 和方差 σ2（或对数方差 logσ2）。
-        
-    - 这表示 VAE 认为每个输入数据 x 都对应潜在空间中的一个**分布**，而不是一个单一的确定点。
-        
-- **潜在空间 (Latent Space)**：
-    
-    - 也称为编码空间或瓶颈层。
-        
-    - VAE 在这个空间中对潜在变量 z 进行采样。为了实现可导性和随机性，VAE 引入了“重参数化技巧”（Reparameterization Trick）。
-        
-    - 重参数化技巧：从编码器输出的分布参数（μ,σ）中采样潜在变量 z 的过程被重写为 z=μ+σ⋅ϵ，其中 ϵ 是从标准正态分布 N(0,I) 中采样的随机噪声。这使得采样过程可导，从而可以通过反向传播训练整个网络。
-        
-- **解码器 (Decoder)**：
-    
-    - 作用：将潜在空间中采样的 z 映射回原始数据空间，生成重构数据 x^。
-        
-    - 解码器尝试从潜在表示中恢复原始数据的特征。
-        
+Feedforward Neural Network (FNN)：forward
 
-### 3. VAE 的目标函数（ELBO）
+Fully Connected Neural Network (FCNN)：Fully Connected
 
-VAE 的训练目标是最大化数据的边际对数似然 logP(x)。然而，直接计算这个值非常困难，因为它需要对所有可能的潜在变量 z 进行积分。因此，VAE 优化的是其**证据下界 (Evidence Lower Bound, ELBO)**，即最大化：
+Multilayer Perceptron (MLP)：Multilayer + Fully Connected
 
-L(θ,ϕ;x)=Eqϕ​(z∣x)​[logpθ​(x∣z)]−DKL​(qϕ​(z∣x)∣∣p(z))
+Deep Neural Network (DNN)：Multilayer
 
-其中：
+AutoEncoder：输出x`
 
-- θ 是解码器（生成模型）的参数。
-    
-- ϕ 是编码器（推断模型）的参数。
-    
-- qϕ​(z∣x) 是编码器学习到的后验分布（近似 P(z∣x)）。
-    
-- pθ​(x∣z) 是解码器学习到的似然分布。
-    
-- p(z) 是潜在变量的先验分布（通常假设为标准正态分布 N(0,I)）。
+![](https://pq01uwab7j.feishu.cn/space/api/box/stream/download/asynccode/?code=ODk5M2RiZjQyMzMyNDNkZDc3MDM1N2UzM2QyZTZmYzZfTXE5WWZoekhDSVRuQnk0RjV6NjVqcEpVSWI2UTJXMDJfVG9rZW46T01EcGJJcWRTbzYydGN4OFNka2M2NkZ0blAzXzE3NTUwNTQ4MDc6MTc1NTA1ODQwN19WNA)
+
+  
+
+#### 代码
+
+  
+
+```Python
+latent_dim = 2 # x`个数
+input_dim = 28 * 28 # x个数
+inter_dim = 256 # 过渡层神经元个数
+
+class VAE(nn.Module):
+    def __init__(self, input_dim=input_dim, inter_dim=inter_dim, latent_dim=latent_dim):
+        super(VAE, self).__init__() #用来初始化
+
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, inter_dim),#如[64, 784]，64是图片数量，784是每张图片的信息量、特征数
+            nn.ReLU(),#dim不变，值被映射
+            nn.Linear(inter_dim, latent_dim * 2),#每个z由两个变量控制
+        )#encoder定义
+
+        self.decoder =  nn.Sequential(
+            nn.Linear(latent_dim, inter_dim),
+            nn.ReLU(),
+            nn.Linear(inter_dim, input_dim),
+            nn.Sigmoid(),
+        )
+
+        # Reparameterization Trick
+    def reparameterize(self, mu, logvar):
+        epsilon = torch.randn_like(mu) # ε ~ N(0, 1)，生成和 mu 形状一样的张量
+        return mu + epsilon * torch.exp(logvar / 2) # mu形状的z，z ~ N(mu, sigma^2)
+
+    def forward(self, x):
+        org_size = x.size()#原始形状
+        batch = org_size[0]#批量
+        x = x.view(batch, -1)#批量 x 各种维度参数
+
+        h = self.encoder(x)# 调用encoder方法，得到两个变量形式的z
+        mu, logvar = h.chunk(2, dim=1)#把第一维的特征分成两类
+        z = self.reparameterize(mu, logvar)
+        recon_x = self.decoder(z).view(size=org_size)#按照org_size reshape
+
+        return recon_x, mu, logvar
+```
+
+  
+
+##### Loss
+
+  
+
+相似度：KL散度+**重构损失**
+
+  
+
+Binary Cross Entropy（BCE）：每个像素Binary判定
+
+  
+
+Mean Squared Error（MSE）：每个像素预测值和真实值的真实连续值的平均值
+
+  
+
+```Python
+kl_loss = lambda mu, logvar: -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+recon_loss = lambda recon_x, x: F.binary_cross_entropy(recon_x, x, size_average=False)
+```
+
+  
+
+##### Training
+
+  
+
+transforms.ToTensor()：
+
+  
+
+PIL.Image / numpy.ndarray -> torch.FloatTensor
+
+  
+
+像素值从 `[0, 255]` 映射到 `[0.0, 1.0]`
+
+  
+
+通道顺序从 `(H, W, C)` 变成 `(C, H, W)`
+
+  
+
+`transforms.Compose([...])`:
+
+  
+
+表示多个图像预处理步骤**按顺序组合**起来
+
+  
+
+定义：
+
+```Python
+epochs = 100
+batch_size = 128#每次训练使用 128 张图片做一次梯度更新（调整参数。在每一轮训练中，根据误差的导数（梯度）调参后，继续下个epoch计算）
+
+#load dataset
+transform = transforms.Compose([transforms.ToTensor()])
+data_train = MNIST('MNIST_DATA/', train=True, download=False, transform=transform)
+data_valid = MNIST('MNIST_DATA/', train=False, download=False, transform=transform)
+
+# 用 DataLoader 将数据打包成小 batch
+train_loader = DataLoader(data_train, batch_size=batch_size, shuffle=True, num_workers=0) #主进程
+test_loader = DataLoader(data_valid, batch_size=batch_size, shuffle=False, num_workers=0)
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+model = VAE(input_dim, inter_dim, latent_dim)
+model.to(device)
+optimizer = optim.Adam(model.parameters(), lr=1e-3)#优化器：依据学习率在每轮调整可训练参数的方法
+```
+
+  
+
+执行训练：
+
+  
+
+```Python
+best_loss = 1e9
+best_epoch = 0
+
+valid_losses = []
+train_losses = []
+
+for epoch in range(epochs):
+    print(f"Epoch {epoch}")
+    model.train()# 启用 Dropout 和 BatchNorm 的“训练行为”
+    train_loss = 0.
+    train_num = len(train_loader.dataset)
+
+    for idx, (x, _) in enumerate(train_loader):
+        batch = x.size(0)
+        x = x.to(device)
+        recon_x, mu, logvar = model(x)
+        recon = recon_loss(recon_x, x)
+        kl = kl_loss(mu, logvar)
+
+        loss = recon + kl#当前这个 batch 的多个样本的总损失
+        train_loss += loss.item()#由tensor变float后计算整个epoch的总损失
+        loss = loss / batch#每个epoch的平均损失
+
+        optimizer.zero_grad()#梯度归零
+        loss.backward()#计算损失对所有模型参数的梯度
+        optimizer.step()#更新参数
+
+        if idx % 100 == 0:
+            print(f"Training loss {loss: .3f} \t Recon {recon / batch: .3f} \t KL {kl / batch: .3f} in Step {idx}")
+
+    train_losses.append(train_loss / train_num)
+
+    valid_loss = 0.
+    valid_recon = 0.
+    valid_kl = 0.
+    valid_num = len(test_loader.dataset)
+    model.eval()# 关闭 Dropout，使用固定的 BatchNorm 均值方差
+    with torch.no_grad():
+        for idx, (x, _) in enumerate(test_loader):
+            x = x.to(device)
+            recon_x, mu, logvar = model(x)
+            recon = recon_loss(recon_x, x)
+            kl = kl_loss(mu, logvar)
+            loss = recon + kl
+            valid_loss += loss.item()
+            valid_kl += kl.item()
+            valid_recon += recon.item()
+
+        valid_losses.append(valid_loss / valid_num)
+
+        print(f"Valid loss {valid_loss / valid_num: .3f} \t Recon {valid_recon / valid_num: .3f} \t KL {valid_kl / valid_num: .3f} in epoch {epoch}")
+
+        if valid_loss < best_loss:
+            best_loss = valid_loss
+            best_epoch = epoch
+
+            torch.save(model.state_dict(), 'best_model_mnist')
+            print("Model saved")
+```
+
+  
+
+VAE 编解码视频
+
+  
+
+1. https://arxiv.org/abs/2104.10157：将视频看作多帧图片
     
 
-ELBO 由两部分组成：
+  
 
-1. **重构损失 (Reconstruction Loss)**：Eqϕ​(z∣x)​[logpθ​(x∣z)]
-    
-    - 这一项衡量解码器从潜在变量重构原始数据的能力。
-        
-    - 它鼓励 VAE 能够准确地从潜在表示中恢复输入数据。
-        
-2. **KL 散度正则项 (KL Divergence Regularization Term)**：DKL​(qϕ​(z∣x)∣∣p(z))  
-    KL 散度正则项： DKL​(qϕ​(z∣x)∣∣p(z))
-    
-    - 这一项衡量编码器输出的潜在分布 qϕ​(z∣x) 与预设的先验分布 p(z) 之间的相似性。
-        
-    - 它鼓励编码器学习到的潜在分布尽可能地接近简单的先验分布（如标准正态分布）。这有助于确保潜在空间的连续性和平滑性，使得在潜在空间中随机采样能够生成有意义的数据。如果这一项过小，可能导致“后验塌陷”（posterior collapse）。
-        
+每帧输入encoder得到z后，用时序模型Transformer对序列建模，输出改进后的序列，最后Decode每个z
 
-### 4. VAE 的优点
+  
 
-- **生成能力**：能够生成高质量、多样化的新数据样本。
-    
-- **潜在空间平滑且连续**：由于 KL 散度正则化，潜在空间中的点具有语义意义，并且点之间的插值通常能产生平滑过渡的生成结果。
-    
-- **可解释性**：潜在变量可能捕捉到数据的一些高级特征或变异因素，使得模型更具可解释性。
-    
-- **概率框架**：基于概率推断，提供了数据生成过程的严谨数学基础。
-    
-
-### 5. VAE 的应用
-
-VAE 在多个领域有广泛应用，包括：
-
-- **图像生成**：生成人脸、动物、物体等图像。
-    
-- **图像修复与补全**：利用潜在表示补全缺失的图像区域。
-    
-- **文本生成**：生成新的句子或文档。
-    
-- **语音合成**：生成自然语音。
-    
-- **异常检测**：通过重构误差或潜在空间中的位置来识别异常数据。
-    
-- **药物发现与材料设计**：在潜在空间中搜索具有特定属性的新分子或材料。
-    
-- **数据去噪**：学习数据的本质特征并去除噪声。
-    
-
-### 6. VAE 的局限性
-
-- **生成样本的清晰度**：相比于生成对抗网络（GANs），VAE 生成的样本在视觉质量上可能略显模糊，尤其是在复杂图像上。这是因为重构损失通常采用像素级别的均方误差，倾向于生成平均的、模糊的结果。
-    
-- **KL 散度权重**：KL 散度项的权重调整可能比较棘手，过大的权重可能导致“后验塌陷”，即编码器倾向于忽略输入数据，直接输出先验分布，从而导致生成效果不佳。
-    
-- **潜在空间的维度选择**：选择合适的潜在空间维度对于 VAE 的性能至关重要。
-    
-
-通过理解 VAE 的这些核心概念和组成部分，可以更好地应用它来解决实际的生成和数据分析问题。
+2. 或直接用3D Encoder和Decoder处理
