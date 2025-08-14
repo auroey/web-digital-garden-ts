@@ -1,5 +1,5 @@
 ---
-title: 3D Vision
+title: 3DV
 date: 2025-08-11
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: LLM教程
-date: 2025-08-11
+title: LLM
+date: 2025-08-14
 ---
 [Happy-LLM](https://datawhalechina.github.io/happy-llm/)

@@ -4,17 +4,18 @@ date: 2025-08-14
 ---
 ### **课程 1：线性代数（[[Linear Algebra for ML & DS]]）**
 
-1. **第 1 周：[[线性方程组]]**
+1. **第 1 周：[[Systems of linear equations]]**
     
     - 二元/三元线性方程组
         
     - 奇异矩阵、非奇异矩阵、行列式
+    - [[numpy]]
         
-2. **第 2 周：解线性方程组**
+2. **第 2 周：[[Solving systems of linear equations]]**
     
     - 消元法、矩阵行化简、阶梯形矩阵、矩阵秩
         
-3. **第 3 周：向量与线性变换**
+3. **第 3 周：[[Vectors and Linear Transformations]]**
     
     - 向量范数、点积、矩阵乘法、矩阵逆、神经网络与矩阵运算
         
