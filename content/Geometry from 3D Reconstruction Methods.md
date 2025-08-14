@@ -1,0 +1,15 @@
+---
+title: Geometry from 3D Reconstruction Methods
+date: 2025-08-11
+---
+我们主要将场景中的所有物体视为一个整体，用单个模型来表示。单个模型分成[[Geometry]]（Geometry）、材质纹理（Texture/Material）及其映射关系（Texture Mapping）来表示。
+Geometry主要表示表面，比如密集点 Point Cloud 和 稀疏点 Mesh。
+
+
+
+
+
+
+[[Shape Representation]]
+
+[[Material Texture Representation]]

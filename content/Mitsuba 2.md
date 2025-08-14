@@ -2,7 +2,7 @@
 title: Mitsuba 2
 date: 2025-08-13
 ---
-**Mitsuba 2** 是一个面向研究的 **可重定向（retargetable）前向与反向[[渲染器]]**，主要用于计算机图形学和计算机视觉中的 **物理精确渲染（Physically-based Rendering）** 和 **逆渲染（Inverse Rendering）** 研究。它的核心目标是提供一个**高灵活性、高性能、可微分**的渲染框架，方便在不同数值表示、执行平台、光学模型之间快速切换。
+**Mitsuba 2** 是一个面向研究的 **可重定向（retargetable）前向与反向[[Renderer]]**，主要用于计算机图形学和计算机视觉中的 **物理精确渲染（Physically-based Rendering）** 和 **逆渲染（Inverse Rendering）** 研究。它的核心目标是提供一个**高灵活性、高性能、可微分**的渲染框架，方便在不同数值表示、执行平台、光学模型之间快速切换。
 
 ---
 

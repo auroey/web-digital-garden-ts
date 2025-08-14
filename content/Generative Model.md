@@ -1,0 +1,11 @@
+---
+title: Generative Model
+date: 2025-08-13
+---
+[The AI workspace that works for you. | Notion](https://xinntao.notion.site/Generative-Modeling-1e9bb3e076ac803a918ff7ea424b7d58)
+
+[[Variational Autoencoder (VAE)]]
+
+[[MMaDA]]
+
+[[Image Editing]]

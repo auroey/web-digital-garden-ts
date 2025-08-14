@@ -1,0 +1,153 @@
+---
+title: Coordinate Transformation
+date: 2025-08-12
+---
+Vertex_ModelSpace
+   ⬇️ Model Matrix
+Vertex_WorldSpace
+   ⬇️ View Matrix
+Vertex_CameraSpace
+   ⬇️ Projection Matrix
+Vertex_ClipSpace
+   ⬇️ /w（齐次除法）
+Vertex_NDC（[-1, 1]）
+   ⬇️ Viewport Mapping
+Screen Coordinate（屏幕像素坐标）
+
+### 🧱 三种坐标系统 & 变换矩阵
+
+|变换阶段|从哪里 → 到哪里|矩阵名称|常用 API 示例|
+|---|---|---|---|
+|模型变换|模型坐标 → 世界坐标|`Model Matrix`|`glm::translate/rotate/scale()`|
+|视图变换|世界坐标 → 摄像机坐标|`View Matrix`|`glm::lookAt()`|
+|投影变换|摄像机坐标 → 屏幕空间（NDC）|`Projection Matrix`|`glm::perspective()` or `glm::ortho()`|
+
+---
+
+### 🧩 模型变换（Model Matrix）
+
+目的： 决定**物体**在**世界**中的位置、朝向、大小。
+
+常见操作：
+
+- 平移（Translate）
+    
+- 旋转（Rotate）
+    
+- 缩放（Scale）
+    
+
+矩阵结构：
+
+```
+Model = Translate × Rotate × Scale
+```
+
+示例：  
+一个小球本来在原点，要移动到 (5, 2, 0)，旋转 45°，放大两倍，就要使用对应的模型矩阵进行变换。
+
+---
+
+### 👁️‍🗨️ 视图变换（View Matrix）
+
+目的： 把世界场景“搬到”摄像机前，便于观察。  
+也可以理解为“模拟**摄像机**的位置与朝向”。
+
+设置方法： `glm::lookAt(eye, center, up)`
+
+|参数|含义|
+|---|---|
+|`eye`|摄像机位置|
+|`center`|摄像机看向的目标点|
+|`up`|摄像机头顶的方向（通常是 Y 轴）|
+
+本质： 将整个场景进行一个逆变换（移动 & 旋转），以配合固定在原点的摄像机观察。
+
+---
+
+### 🎥 投影变换（Projection Matrix）
+
+目的： 将摄像机坐标转换为屏幕上显示的**二维**图像，实现“透视”或“正交”效果。
+
+|类型|效果|使用函数|
+|---|---|---|
+|透视投影（Perspective）|远小近大，真实世界效果|`glm::perspective(fov, aspect, near, far)`|
+|正交投影（Orthographic）|物体无远近缩放，常用于UI|`glm::ortho(left, right, bottom, top, near, far)`|
+
+透视投影效果：
+
+- 摄像机看到的是一个“视锥体”
+    
+- 投影矩阵负责将这个锥体压缩成单位立方体（NDC）
+
+
+### 🧮 1. **Clip Space → NDC：齐次除法 (/w)**
+
+变换前：
+
+> 顶点经过 MVP（Model × View × Projection）矩阵变换后，处于**Clip Space**，坐标是四维齐次坐标：  
+> `v_clip = (x, y, z, w)`
+
+变换后：
+
+> 要得到三维的标准设备坐标（NDC），必须对前三个分量除以 `w`：
+
+```
+v_ndc = (x / w, y / w, z / w)  
+```
+
+**为什么这么做？**
+
+- `w` 编码了透视信息；齐次除法体现“远小近大”的效果；
+    
+- 透视投影会让远处的物体 z/w 更接近 -1，近处更接近 +1。
+    
+
+**结果：**
+
+- 得到的 NDC 坐标范围都是 `[-1, 1]`
+    
+    - X ∈ [-1, 1]：从左到右
+        
+    - Y ∈ [-1, 1]：从下到上
+        
+    - Z ∈ [-1, 1]：从近到远（用于深度测试）
+        
+
+---
+
+### 🧭 2. **NDC → Viewport Mapping（视口映射）**
+
+> NDC 是 OpenGL 逻辑坐标，还要转换成 **实际屏幕坐标（像素）**，才可以显示在屏幕上。
+
+#### 映射公式（以 OpenGL 为例）：
+
+```cpp
+screen_x = (ndc_x + 1) / 2 * viewport_width
+screen_y = (ndc_y + 1) / 2 * viewport_height
+```
+
+- 把 NDC 的 `[-1,1]` 映射为 `[0, viewport size]`；
+    
+- NDC 的中心点 (0,0) 映射为屏幕中心；
+    
+- 上下、左右变为屏幕坐标的像素值。
+    
+
+**示例：**
+
+- NDC 坐标为 (-1, -1) → 映射为左下角 (0, 0)
+    
+- NDC 坐标为 (1, 1) → 映射为右上角 (屏宽, 屏高)
+    
+
+---
+
+### 🧾 3. **Z值处理：深度缓冲与 Z-Buffer**
+
+- z ∈ [-1, 1]（OpenGL）或 [0, 1]（DirectX）范围将被映射到深度缓冲；
+    
+- 用于判断片元遮挡关系（Depth Test）；
+    
+- 近的物体覆盖远的物体。
+    

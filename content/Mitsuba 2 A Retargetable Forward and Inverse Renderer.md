@@ -2,7 +2,7 @@
 title: Mitsuba 2 A Retargetable Forward and Inverse Renderer
 date: 2025-08-13
 ---
-本文介绍了 [[Mitsuba 2]] —— 一个[[可重定向（retargetable）]]的前向与反向渲染框架，旨在通过[[模板元编程]]和[[类型系统]]，将通用的渲染算法在编译期自动转换为适用于不同任务的高效实现，包括光谱/偏振渲染、SIMD 向量化渲染、GPU 内核生成以及可微渲染。  
+本文介绍了 [[Mitsuba 2]] —— 一个[[Retargetable]]的前向与反向渲染框架，旨在通过[[Template Metaprogramming]]和[[Type System]]，将通用的渲染算法在编译期自动转换为适用于不同任务的高效实现，包括光谱/偏振渲染、SIMD 向量化渲染、GPU 内核生成以及可微渲染。  
 该系统的特点在于：
 
 - 以统一的通用实现为基础，通过组合可编译期计算的类型，自动替换核心数据结构与算法执行流程，无需对整个渲染器进行大量手工重构。
