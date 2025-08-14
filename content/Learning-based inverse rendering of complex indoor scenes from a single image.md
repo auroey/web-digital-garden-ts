@@ -117,7 +117,6 @@ End-to-End Inverse Rendering Framework
     
     - 将所有 $\tilde{L}_i$ 与对应 BRDF 权重整合，得到重建图像：
         
-        I~=1N∑i=1Nfr(v,di)⋅L~i⋅cos⁡θip(v,di)\tilde{I} = \frac{1}{N} \sum_{i=1}^{N} \frac{f_r(v, d_i) \cdot \tilde{L}_i \cdot \cos \theta_i}{p(v, d_i)}
 
 ---
 
@@ -147,7 +146,6 @@ End-to-End Inverse Rendering Framework
     
     - 如果 SSRT 判断不可靠（depth mismatch 大），则通过不确定度权重 $u$ 融合两条路径的结果：
         
-        L^refined=(1−u)⋅L^SSRT+u⋅L^out-of-view\hat{L}_{\text{refined}} = (1 - u) \cdot \hat{L}_{\text{SSRT}} + u \cdot \hat{L}_{\text{out-of-view}}
 
 ---
 
@@ -164,7 +162,6 @@ End-to-End Inverse Rendering Framework
 ||NeRF MLP + Volume Rendering|模拟视野外环境光照估计|
 ||Blending|根据 SSRT 的可信度融合视野内外光照|
 
-如需我用图标形式画出流程或生成总结 PDF，也可以继续说。
 ---
 
 ## 🏗️ 4. 支撑数据集：InteriorVerse
