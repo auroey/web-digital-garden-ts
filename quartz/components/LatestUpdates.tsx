@@ -34,12 +34,12 @@ export default (() => {
     // 最新更新：按更新时间排序
     const recentPages = pages
       .sort((a, b) => sortByRecent(a, b, cfg))
-      .slice(0, 5)
+      .slice(0, 2)
 
     // 推荐入口：按被引次数排序
     const popularPages = pages
       .sort(sortByInlinks)
-      .slice(0, 5)
+      .slice(0, 4)
 
     if (recentPages.length === 0 && popularPages.length === 0) return null
 
