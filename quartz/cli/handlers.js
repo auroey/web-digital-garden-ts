@@ -1,7 +1,26 @@
 import { promises } from "fs"
 import path from "path"
 import esbuild from "esbuild"
-import { styleText } from "util"
+import { inspect } from "util"
+
+// Polyfill for styleText in older Node.js versions
+const styleText = (color, text) => {
+  const colors = {
+    red: '\x1b[31m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    blue: '\x1b[34m',
+    magenta: '\x1b[35m',
+    cyan: '\x1b[36m',
+    bgGreen: '\x1b[42m',
+    black: '\x1b[30m',
+    reset: '\x1b[0m'
+  }
+  if (Array.isArray(color)) {
+    return `${colors[color[0]] || ''}${colors[color[1]] || ''}${text}${colors.reset}`
+  }
+  return `${colors[color] || ''}${text}${colors.reset}`
+}
 import { sassPlugin } from "esbuild-sass-plugin"
 import fs from "fs"
 import { intro, outro, select, text } from "@clack/prompts"
