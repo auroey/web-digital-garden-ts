@@ -9,11 +9,6 @@ https://arxiv.org/pdf/2402.17525
 #### 扩散模型原理及优势
 
   
-
-![](https://pq01uwab7j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTc2YjE5YzY0ODEzODI3MDdmZTY1MDIxYWNiMmE3NDNfR3BxbUNoWkVxZmhwMnVkb0hpRGE2NWpPbUV1Z3oxY0RfVG9rZW46TTRyQWJ3OVRib1FYTE54NmNyRGM4UWZpbkxjXzE3NTUwNTQ5Njc6MTc1NTA1ODU2N19WNA)
-
-  
-
 原输入（图像或编码）逐步DDIM采样（重复性不同程度不同路径地加噪），再 Inversion（记忆确定已知的加噪过程，通过试错，逆推噪音到原图的计算方式），若 reconstruction failure 则初始化。
 
   

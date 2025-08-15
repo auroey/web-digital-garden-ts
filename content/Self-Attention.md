@@ -1,5 +1,5 @@
 ---
-title: Self-Attention Intro
+title: Self-Attention
 date: 2025-08-11
 ---
 REF: [https://www.bilibili.com/video/BV1v3411r78R/?spm_id_from=333.337.search-card.all.click&vd_source=8be5ba4fcf7c69b9960ed391f70c5fb0](https://www.bilibili.com/video/BV1v3411r78R/?spm_id_from=333.337.search-card.all.click&vd_source=8be5ba4fcf7c69b9960ed391f70c5fb0)

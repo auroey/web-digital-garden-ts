@@ -2,7 +2,7 @@
 title: Mathematics for Machine Learning and Data Science Specialization
 date: 2025-08-14
 ---
-### **课程 1：线性代数（[[Linear Algebra for ML & DS]]）**
+### **课程 1：[[Linear Algebra for ML & DS]]**
 
 1. **第 1 周：[[Systems of linear equations]]**
     
@@ -24,18 +24,16 @@ date: 2025-08-14
     - 行列式性质、特征值与特征向量、PCA 应用
         
 
-### **课程 2：微积分（Calculus for ML & DS）**
+### **课程 2：Calculus for ML & DS**
 
-- 极限与连续性
+- [[Derivatives and Optimization]]
     
-- 导数与梯度（含多元函数）
+- [[Gradients and Gradient Descent]]
     
-- 偏导数与链式法则
-    
-- 梯度下降与优化
+- [[Optimization in Neural Networks and Newton's Method]]
     
 
-### **课程 3：概率与统计（Probability & Statistics for ML & DS）**
+### **课程 3：Probability & Statistics for ML & DS**
 
 - 概率论基础
     
