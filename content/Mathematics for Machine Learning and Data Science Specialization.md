@@ -35,7 +35,7 @@ date: 2025-08-14
 
 ### **课程 3：Probability & Statistics for ML & DS**
 
-- IntroductiontoProbabilityandProbabilityDistributions
+- [[Introduction to Probability and Probability Distributions]]
     
 - 条件概率与贝叶斯定理
     
