@@ -1,0 +1,42 @@
+.latest-updates {
+  h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+  }
+
+  .recent-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .recent-li {
+    margin-bottom: 0.5em;
+    
+    .section {
+      .desc {
+        h3 {
+          font-size: 0.9em;
+          font-weight: 500;
+          margin: 0;
+          
+          a {
+            color: var(--secondary);
+            text-decoration: none;
+            
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      
+      .meta {
+        font-size: 0.8em;
+        color: var(--tertiary);
+        margin: 0.2em 0 0 0;
+      }
+    }
+  }
+}

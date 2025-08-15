@@ -1,5 +1,19 @@
 import { isCancel, outro } from "@clack/prompts"
-import { styleText } from "util"
+import { inspect } from "util"
+
+// Polyfill for styleText in older Node.js versions
+const styleText = (color, text) => {
+  const colors = {
+    red: '\x1b[31m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    blue: '\x1b[34m',
+    magenta: '\x1b[35m',
+    cyan: '\x1b[36m',
+    reset: '\x1b[0m'
+  }
+  return `${colors[color] || ''}${text}${colors.reset}`
+}
 import { contentCacheFolder } from "./constants.js"
 import { spawnSync } from "child_process"
 import fs from "fs"
