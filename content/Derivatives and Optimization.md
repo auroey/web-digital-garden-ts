@@ -81,7 +81,7 @@ $$
 $$  
         \nabla f = \begin{bmatrix} f_x \\ f_y \end{bmatrix}  
         $$
-将二阶偏导按顺序排成矩阵：Hessian 矩阵（[[Covariance Matrix]] 也是这个分布，但含义和算法不同）
+将二阶偏导按顺序排成矩阵：[[Hessian Matrix]]（[[Covariance Matrix]] 也是这个分布，但含义和算法不同）
 - 能记录函数在各方向的二阶变化率，反映曲面的局部曲率特性。
 $$  
 H(f) = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{bmatrix} = \begin{bmatrix} 4 & -1 \\ -1 & 6 \end{bmatrix}  
