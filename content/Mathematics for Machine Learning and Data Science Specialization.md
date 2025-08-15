@@ -37,7 +37,7 @@ date: 2025-08-14
 
 - [[Introduction to Probability and Probability Distributions]]
     
-- 条件概率与贝叶斯定理
+- [[Describing probability distributions and probability distributions with multiple variables]]
     
 - 期望与方差
     
