@@ -39,9 +39,9 @@ date: 2025-08-14
     
 - [[Describing probability distributions and probability distributions with multiple variables]]
     
-- 期望与方差
+- [[Sampling and Point estimation]]
     
-- 分布（正态、二项等）
+- [[Confidence Intervals and Hypothesis testing]]
     
-- 假设检验与置信区间
+
 

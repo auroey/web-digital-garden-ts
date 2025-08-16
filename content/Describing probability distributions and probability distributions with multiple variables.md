@@ -1,6 +1,8 @@
 ---
 title: Describing probability distributions and probability distributions with multiple variables
 date: 2025-08-15
+tags:
+  - todo
 ---
 分布中心的三种度量方式
 

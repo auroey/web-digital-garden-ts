@@ -97,3 +97,5 @@ $$
 - 在机器学习中很多模型默认特征服从正态分布（如 LDA、朴素贝叶斯）
 
 ---
+
+扩展维度：[[Multivariate Gaussian Distribution]]

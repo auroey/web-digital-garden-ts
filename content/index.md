@@ -1,5 +1,5 @@
 ---
-title: Index
+title: About
 date: 2025-08-11
 ---
 # Welcome
