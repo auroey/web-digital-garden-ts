@@ -22,3 +22,11 @@ $$
 \mathbb{E}[g(X)] = \int_{-\infty}^{\infty} g(x) \cdot f(x) \, dx
 $$
 
+
+[[Standardizing a Distribution]]
+
+描述随机变量分布形状（分布的中心、离散程度、对称性、尖锐度等）的一类统计量：[[Moment]]
+
+在数据科学中，除了Mean、[[Variance]]、[[Moment]]等“数字化描述”，可视化是另一种理解数据分布形态的重要方式。
+- 分位数（[[Quantiles]]）
+- 箱型图（[[Box-Plot]]）
