@@ -16,3 +16,4 @@ $$\mathrm{Var}(X)=\mathbb{E}\left[(X-\mathbb{E}[X])^2\right]$$
 
 Standard Deviation：
 $$\sigma=\sqrt{\mathrm{Var}(X)}=\sqrt{\mathbb{E}[(X-\mathbb{E}[X])^2]}$$
+
