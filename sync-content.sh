@@ -49,8 +49,19 @@ echo "$CHANGED_FILES" | while read -r file; do
     log "  - $file"
 done
 
+# 构建网站以更新最新更新和推荐入口
+log "构建网站以更新最新更新和推荐入口..."
+if npm run quartz build; then
+    log "✅ 网站构建成功"
+else
+    log "⚠️  网站构建失败，但继续执行git操作..."
+fi
+
+# 添加所有更改（包括构建的文件）
+git add .
+
 # 提交更改
-COMMIT_MSG="自动同步: $(date '+%Y-%m-%d %H:%M:%S') 更新 content 文件夹"
+COMMIT_MSG="自动同步: $(date '+%Y-%m-%d %H:%M:%S') 更新 content 文件夹并重建网站"
 git commit -m "$COMMIT_MSG"
 
 log "已提交更改：$COMMIT_MSG"

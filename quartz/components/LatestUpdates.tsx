@@ -7,10 +7,37 @@ import { getDate } from "./Date"
 import { GlobalConfiguration } from "../cfg"
 import style from "./styles/latestUpdates.scss"
 
+// Format date to minute level
+function formatDateToMinutes(date: Date): string {
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffMinutes = Math.floor(diffMs / (1000 * 60))
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
+  if (diffMinutes < 1) {
+    return "just now"
+  } else if (diffMinutes < 60) {
+    return `${diffMinutes} min ago`
+  } else if (diffHours < 24) {
+    return `${diffHours} hours ago`
+  } else if (diffDays < 7) {
+    return `${diffDays} days ago`
+  } else {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
+}
+
 function sortByRecent(a: QuartzPluginData, b: QuartzPluginData, cfg: GlobalConfiguration) {
   const ta = (getDate(cfg, a) ?? new Date(0)).getTime()
   const tb = (getDate(cfg, b) ?? new Date(0)).getTime()
-  return tb - ta
+  return tb - ta // Sort by time in descending order (latest first)
 }
 
 function sortByInlinks(a: QuartzPluginData, b: QuartzPluginData) {
@@ -26,17 +53,17 @@ export default (() => {
     displayClass,
     cfg,
   }: QuartzComponentProps) => {
-    // 过滤掉当前页面和noindex页面
+    // Filter out current page and noindex pages
     const pages = allFiles
       .filter(p => p.slug !== fileData.slug)
       .filter(p => !(p.frontmatter as any)?.noindex)
 
-    // 最新更新：按更新时间排序
+    // Latest updates: sort by update time
     const recentPages = pages
       .sort((a, b) => sortByRecent(a, b, cfg))
       .slice(0, 2)
 
-    // 推荐入口：按被引次数排序
+    // Recommended entries: sort by number of references
     const popularPages = pages
       .sort(sortByInlinks)
       .slice(0, 4)
@@ -47,11 +74,11 @@ export default (() => {
       <div class={classNames(displayClass, "latest-updates")}>
         {recentPages.length > 0 && (
           <div class="mb-8">
-            <h3>最新更新</h3>
+            <h3>Latest Updates</h3>
             <ul class="recent-ul">
               {recentPages.map(p => {
                 const date = getDate(cfg, p)
-                const dateText = date ? date.toISOString().slice(0, 10) : ""
+                const dateText = date ? formatDateToMinutes(date) : ""
                 const href = resolveRelative(fileData.slug as FullSlug, p.slug as FullSlug)
                 const title = (p.frontmatter as any)?.title ?? (p.slug as string)?.split("/").pop() ?? "Untitled"
                 return (
@@ -79,7 +106,7 @@ export default (() => {
 
         {popularPages.length > 0 && (
           <div>
-            <h3>推荐入口</h3>
+            <h3>Recommended</h3>
             <ul class="recent-ul">
               {popularPages.map(p => {
                 const inlinksCount = (p.links as string[])?.length ?? 0
@@ -96,7 +123,7 @@ export default (() => {
                         </h3>
                       </div>
                       <p class="meta">
-                        ({inlinksCount} 次引用)
+                        ({inlinksCount} references)
                       </p>
                     </div>
                   </li>
