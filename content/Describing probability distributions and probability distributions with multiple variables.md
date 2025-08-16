@@ -30,3 +30,5 @@ $$
 在数据科学中，除了Mean、[[Variance]]、[[Moment]]等“数字化描述”，可视化是另一种理解数据分布形态的重要方式。
 - 分位数（[[Quantiles]]）
 - 箱型图（[[Box-Plot]]）
+
+[[Joint Distribution]]
