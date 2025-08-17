@@ -6,27 +6,27 @@ date: 2025-08-16
 
 熟悉各种数据结构的**特点和用法**，学习不同算法的**原理、流程、用途和效率**等方面的内容。
 
-参考：[序 - Hello 算法](https://www.hello-algo.com/chapter_hello_algo/)
+参考：[Hello 算法](https://www.hello-algo.com/chapter_hello_algo/)
 
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/20250816212024.png)
 
 - 数据结构
-	- 数据结构
+	- [[data structure]]
 	  - 逻辑结构、物理结构
-	  - 基本数据类型
+	  - [[Basic data types]]
 	  - 数字编码、字符编码
 	
-	- 数组与链表
+	- [[array and linked list]]
 	  - 连续与分散存储方式
 	  - 两者操作方法与优缺点
 	  - 基于动态数组实现列表
 	  - 计算机内存与缓存
 	
-	- 栈与队列
+	- [[stack and queue]]
 	  - 先入后出、先入先出、双向队列
 	  - 基于数组和链表实现
 	
-	- 哈希表
+	- [[hash table]]
 	  - 哈希表工作原理、基于数组实现
 	  - 哈希冲突、链式地址、开放寻址
 	  - 哈希算法的用途与设计目标
@@ -55,11 +55,11 @@ date: 2025-08-16
     - for循环、while循环、嵌套循环
     - 递归调用栈、尾递归、递归树
     - 迭代与递归对比
-  - 时间复杂度
+  - [[Time complexity]]
     - 函数渐近上界
     - 计算方法、常见类型
     - 最差、最佳、平均时间复杂度
-  - 空间复杂度
+  - [[space complexity]]
     - 推算方法、常见类型
     - 权衡时间与空间
 
