@@ -29,7 +29,7 @@ date: 2025-08-17
 ## 常见二叉树类型
 
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/20250817130853.png)
-complete binary tree]]
+[[complete binary tree]]
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/20250817130904.png)
 
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/20250817130924.png)
