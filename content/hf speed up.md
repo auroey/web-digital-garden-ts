@@ -7,24 +7,17 @@ date: 2025-08-19
 ### 1) 获取脚本 & 准备
 
 ```bash
-cd ~/code/project/thirdparty/models
+cd ~/code/projectname/models
+conda install -c conda-forge aria2 -y
+
 wget https://hf-mirror.com/hfd/hfd.sh
 chmod a+x hfd.sh
-
-# 可选：安装 aria2（Linux/Mac）
-conda install -c conda-forge aria2 -y   # 或 sudo apt-get install aria2
-```
-
-### 2) 只走镜像
-
-```bash
 export HF_ENDPOINT="https://hf-mirror.com"
 ```
 
-### 3) 多线程批量下载（整仓）
+### 2) 多线程批量下载（整仓）
 
 ```bash
-# 30B
 ./hfd.sh xx/modelname --tool aria2c -x 8 -j 4 \
   --local-dir modelname
 ```
