@@ -7,8 +7,9 @@ date: 2025-08-19
 ### 1) 获取脚本 & 准备
 
 ```bash
-cd ~/code/projectname/models
 conda install -c conda-forge aria2 -y
+
+cd ~/code/projectname/models
 
 wget https://hf-mirror.com/hfd/hfd.sh
 chmod a+x hfd.sh
