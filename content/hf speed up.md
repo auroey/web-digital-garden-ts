@@ -21,6 +21,14 @@ export HF_ENDPOINT="https://hf-mirror.com"
 ```bash
 ./hfd.sh xx/modelname --tool aria2c -x 8 -j 4 \
   --local-dir modelname
+
+./hfd.sh hails/mmlu_no_train \
+  --dataset \
+  --tool aria2c -x 8 -j 4 \
+  --local-dir ./datasetname
+
+
+
 ```
 
 - `-x 8`：每个文件 8 线程
