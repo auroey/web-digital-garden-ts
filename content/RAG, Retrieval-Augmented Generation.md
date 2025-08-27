@@ -2,7 +2,7 @@
 title: RAG, Retrieval-Augmented Generation
 date: 2025-08-27
 ---
-像[[Prompt Engineering]]，即，将database与prompt共同作为输入，减少幻觉提升准确性。
+像[[Prompt Engineering]]，即，将database与prompt共同作为输入，解决模型无法和外接数据交互的问题，减少幻觉提升准确性。
 
 可以解决的LLM限制：
 - overdate

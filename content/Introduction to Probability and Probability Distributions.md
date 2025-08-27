@@ -39,7 +39,7 @@ date: 2025-08-15
 
 ---
 
- [[Generative Model]]
+ [[GAI,Generative AI]]
 
 ### 👤 生成脸（StyleGAN）
 
