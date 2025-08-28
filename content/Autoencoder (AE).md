@@ -14,7 +14,7 @@ date: 2025-08-11
 
 用自编码器学习低维向量表示，这个 latent Representation / Bottleneck Vector 也可以称作 embedding
 
-希望重构目标与原始输入相同。如果希望生成的图像为新事物的话采用[[Variational Autoencoder (VAE)]]
+希望重构目标与原始输入相同。如果希望生成的图像为新事物的话采用[[VAE, Variational Autoencoder]]
 
 ---
 

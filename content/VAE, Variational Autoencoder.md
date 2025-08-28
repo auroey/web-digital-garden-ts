@@ -1,5 +1,5 @@
 ---
-title: Variational Autoencoder (VAE)
+title: VAE, Variational Autoencoder
 date: 2025-08-11
 ---
 [[GAI,Generative AI]]
