@@ -2,7 +2,7 @@
 title: SfM, Structure-from-Motion
 date: 2025-09-02
 ---
-# 主流 SfM 方法分类与特点
+SFM通过分析一系列从不同、未知视角拍摄的二维（2D）照片，来同时地重建一个场景或物体的三维（3D）结构，并估算出拍摄每张照片时的相机位置和朝向，即**输入照片，输出3D点云模型和相机路径**。
 
 ## 两大类型
 目前主流的 **SfM（Structure from Motion，运动结构恢复）** 方法主要分为两类：
@@ -33,10 +33,11 @@ date: 2025-09-02
   - 优点：鲁棒性高，对 outlier 不敏感。  
   - 缺点：效率较低，每加入一张图像都要 BA；误差会累积，可能产生漂移。  
 
+![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509021955071.png)
+
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509021507458.png)
 
-### 流程步骤
-
+### 对应关系搜索（Correspondence Search）=Feature Extraction+Matching+Geometric Verification
 1. **Image Acquisition**
    - 从不同角度获取场景的多张重叠图像。  
    - 图像重叠越多、视角越丰富，重建效果越好。  
@@ -48,8 +49,8 @@ date: 2025-09-02
 3. **Feature Matching**
    - 在不同图像之间进行特征匹配，找到对应的物理点。  
    - 匹配的可靠性直接决定 3D 重建精度。  
-
-4. **Camera Pose Estimation**
+### 增量式重建（Incremental Reconstruction）=Initialization+Image Registration+Triangulation+Bundle Adjustment
+1. **Camera Pose Estimation**
    - 根据匹配的特征点，估计相机的外参（位置与姿态）。  
    - 常用方法是求解 **Essential Matrix / Fundamental Matrix**。  
 
