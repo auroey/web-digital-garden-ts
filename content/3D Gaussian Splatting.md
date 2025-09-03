@@ -8,7 +8,7 @@ date: 2025-08-11
 
 REF: [https://www.bilibili.com/video/BV1My411h7tt/?spm_id_from=333.999.0.0&vd_source=8be5ba4fcf7c69b9960ed391f70c5fb0](https://www.bilibili.com/video/BV1My411h7tt/?spm_id_from=333.999.0.0&vd_source=8be5ba4fcf7c69b9960ed391f70c5fb0)
 
-## [[COLMAP]]
+## [[Colmap]]
 
 ![image-20250110095647897](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/image-20250110095647897.png)
 

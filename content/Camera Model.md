@@ -19,7 +19,8 @@ Extrinsic Parameters：外参是描述**相机**在世界坐标系中的**位置
 相机坐标系以光心为相机坐标系的原点，以平行于图像的x和y方向为Xc轴和Yc轴，单位是长度单位。
 图像物理坐标系以主光轴和图像平面交点为坐标原点，x和y方向如图所示，单位是长度单位。
 图像像素坐标系以图像的顶点为坐标原点，u和v方向平行于x和y方向，单位是以像素计。
-![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509021408807.png)
+![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509031128079.png)
+
 （U,V,W）是世界坐标系，经过刚体变换（如：旋转、平移）后变为了相机坐标系，再次经过透视投影转变为了图像坐标系，最后经仿射变换转换为了像素坐标系（u,v）。转换关系如下(Z是尺度因子)：
 
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509021413812.png)
