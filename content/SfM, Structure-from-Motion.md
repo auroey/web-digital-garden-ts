@@ -34,10 +34,6 @@ SFM通过分析一系列从不同、未知视角拍摄的二维（2D）照片，
   - 缺点：效率较低，每加入一张图像都要 BA；误差会累积，可能产生漂移。  
 
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509021955071.png)
-
-![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509021507458.png)
-
-
 ### 阶段1：对应关系搜索（Correspondence Search）=Feature Extraction+Matching+Geometric Verification
 
 #### 特征提取（Feature Extraction）
