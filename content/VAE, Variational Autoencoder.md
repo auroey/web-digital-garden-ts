@@ -80,7 +80,7 @@ class VAE(nn.Module):
 
   
 
-Binary Cross Entropy（BCE）：每个像素Binary判定
+[[BCE, binary cross-entropy]]：每个像素Binary判定
 
   
 
