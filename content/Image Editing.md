@@ -318,7 +318,7 @@ Human Feedback-Enhanced Learning
 
   
 
-HIVE：引入 Reinforcement Learning from Human Feedback (RLHF) 机制
+HIVE：引入 [[RL, Reinforcement Learning]] from Human Feedback (RLHF) 机制
 
   
 
