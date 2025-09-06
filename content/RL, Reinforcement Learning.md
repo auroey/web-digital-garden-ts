@@ -2,6 +2,7 @@
 title: RL, Reinforcement Learning
 date: 2025-09-05
 ---
+[CS231n：12 强化学习 – 码途拾遗](https://fangkaipeng.com/?p=2079)
 
 ## 1. 什么是强化学习？
 
