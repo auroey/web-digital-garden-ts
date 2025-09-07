@@ -10,6 +10,6 @@ Geometry主要表示表面，比如密集点 Point Cloud 和 稀疏点 Mesh。
 
 
 
-[[Shape Representation]]
+[[3D Representation]]
 
 [[Material Texture Representation]]

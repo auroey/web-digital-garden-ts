@@ -1,5 +1,5 @@
 ---
-title: Shape Representation
+title: 3D Representation
 date: 2025-08-11
 ---
 指的是用**直接、显式的数据结构**来存储和描述三维场景的几何、颜色、密度等信息。数据结构是**可直接访问**的（数组、列表、网格、点集等）
@@ -15,3 +15,4 @@ date: 2025-08-11
 
 三角面片 (Mesh)、点云 (Point cloud)、占用场 (Occupancy field)、符号距离场 (Signed distance field, SDF)
 ![[Pasted image 20250811203331.png]]
+![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509070938423.png)
