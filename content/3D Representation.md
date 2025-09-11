@@ -16,3 +16,4 @@ date: 2025-08-11
 三角面片 (Mesh)、点云 (Point cloud)、占用场 (Occupancy field)、符号距离场 (Signed distance field, SDF)
 ![[Pasted image 20250811203331.png]]
 ![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509070938423.png)
+![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509111847795.png)
