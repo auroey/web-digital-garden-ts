@@ -2,6 +2,8 @@
 title: 3D Gaussian Splatting
 date: 2025-08-11
 ---
+[[DYNAMIC GAUSSIANS MESH]]
+
 ![image-20250110094646830](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/image-20250110094646830.png)
 
 全过程：用SFM的COLMAP建模，输入一个角度的用椭球聚合而成的投影视角，与真实的输入视角比对，修改立体模型，继续迭代。

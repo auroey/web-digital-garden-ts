@@ -37,3 +37,5 @@ date: 2025-08-13
 [[MMaDA]]
 
 [[Image Editing]]
+
+[[GAN, Generative adversarial network]]

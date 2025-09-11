@@ -4,6 +4,7 @@ date: 2025-08-11
 ---
 [[GAI,Generative AI]]
 
+[Fetching Title#f6iu](https://lilianweng.github.io/posts/2018-08-12-vae/)
 ### VAE
 
 https://adaning.github.io/posts/9047.html
