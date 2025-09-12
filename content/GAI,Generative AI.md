@@ -32,10 +32,21 @@ date: 2025-08-13
 
 [The AI workspace that works for you. | Notion](https://xinntao.notion.site/Generative-Modeling-1e9bb3e076ac803a918ff7ea424b7d58)
 
-[[VAE, Variational Autoencoder]]
+
 
 [[MMaDA]]
 
 [[Image Editing]]
 
-[[GAN, Generative adversarial network]]
+
+
+
+分类：
+
+Explicit Density
+- Tractable Density：[[Autoregressive Models]]、[[Flow-based models]]
+- Approximate Density：[[VAE, Variational Autoencoder]]
+lmplicit Density
+- [[GAN, Generative adversarial network]]
+- [[Diffusion Models]]
+![](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509121248396.png)
