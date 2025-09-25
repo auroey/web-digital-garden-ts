@@ -19,7 +19,3 @@ $$
 
 - 不同于概率密度函数（[[PDF, Probability Density Function]]）——PDF 用于连续变量
 
----
-
-Visualizing PDF: [[Kernel Density Estimation, KDE]]
-

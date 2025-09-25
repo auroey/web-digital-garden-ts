@@ -58,3 +58,5 @@ $$
 
 
 结合[[Box-Plot]]成为[[Violin Plot]]
+
+比较两个分布是否重合：[[Quantile–Quantile Plot, QQ Plot]]

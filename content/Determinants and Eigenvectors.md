@@ -38,7 +38,7 @@ $$
 
 ## 3. 特征基（Eigenbasis）与简化计算
 - 如果矩阵 $A$ 的特征向量线性无关且张成整个空间，可以组成 **特征基**
-- 在特征基下，$A$ [[Diagonalization]]，变为**对角矩阵**：
+- 在特征基下，$A$ 做 [[Diagonalization]] 操作，变为**对角矩阵**：
 $$
 P^{-1} A P = \begin{bmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{bmatrix}
 $$

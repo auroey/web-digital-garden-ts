@@ -60,3 +60,7 @@ $$
 - **PDF 本身不是概率，但可积得概率**
 
 ---
+
+---
+
+Visualizing PDF: [[Kernel Density Estimation, KDE]]

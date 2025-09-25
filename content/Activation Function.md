@@ -2,7 +2,7 @@
 title: Activation Function
 date: 2025-08-15
 ---
-![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202509111133861.png)
+
 
 
 引入“弯曲”，网络能拟合更复杂的函数，比如人脸识别、语音识别。

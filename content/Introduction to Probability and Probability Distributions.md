@@ -82,7 +82,4 @@ $$
 [[Normal Distribution]]
 [[Chi-Squared Distribution]]
 
-[[PDF, Probability Density Function]]
-
-
 [[Sampling from a Distribution]]
