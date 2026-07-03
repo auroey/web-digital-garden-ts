@@ -46,9 +46,9 @@ predictive model 主要用于输出一个能被量化的结果，比如明天的
 
 所以，WM 整体上分为两类，一类使用人类明确编写的规则和方程进行模拟，另一类让模型从数据中自主推导出规则和方程（比如 model-based Reinforcement Learning 中用于环境理解的组件就是一种 WM），归根到底都是**遵循某种规律**，根据已有的 信息（和实时的扰乱信息），去**预测 environment 变化**。
 
-但是因为各个 model 的细微之处又有不同，按照以下两个问题将 WM 分类，会更便于区分各个范式：
+但是因为各个 WM 的细微之处又有不同，按照以下两个问题将 WM 分类，会更便于区分各个范式：
 
-- model 输入 **action** 吗？
+- WM 输入 **action** 吗？
   - 无 action：无扰乱，直接预测 environment 变化
   - 有 action：在 inference 过程中施加 action，预测 environment 变化
   - 不输入但自己学习 action：model 从 training data 中自主提取类似 action 的变量，预测 environment 变化
@@ -68,7 +68,7 @@ predictive model 主要用于输出一个能被量化的结果，比如明天的
 
 # World Model 入门（2）：演化、先行门派
 
-
+TBC.
 
 
 
