@@ -258,6 +258,7 @@ export async function handleBuild(argv) {
 
   console.log(`\n${styleText(["bgGreen", "black"], ` Quartz v${version} `)} \n`)
   const ctx = await esbuild.context({
+    absWorkingDir: cwd,
     entryPoints: [fp],
     outfile: cacheFile,
     bundle: true,
@@ -272,6 +273,7 @@ export async function handleBuild(argv) {
     metafile: true,
     sourcemap: true,
     sourcesContent: false,
+    nodePaths: [path.join(cwd, "node_modules")],
     plugins: [
       sassPlugin({
         type: "css-text",

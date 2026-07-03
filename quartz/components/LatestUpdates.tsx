@@ -6,31 +6,27 @@ import { classNames } from "../util/lang"
 import { getDate } from "./Date"
 import { GlobalConfiguration } from "../cfg"
 import style from "./styles/latestUpdates.scss"
+import script from "./scripts/latestUpdates.inline"
 
-// Format date to minute level
-function formatDateToMinutes(date: Date): string {
-  const now = new Date()
+function formatRelativeDate(date: Date, locale: string, now = new Date()): string {
   const diffMs = now.getTime() - date.getTime()
   const diffMinutes = Math.floor(diffMs / (1000 * 60))
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" })
 
   if (diffMinutes < 1) {
     return "just now"
   } else if (diffMinutes < 60) {
-    return `${diffMinutes} min ago`
+    return rtf.format(-diffMinutes, "minute")
   } else if (diffHours < 24) {
-    return `${diffHours} hours ago`
-  } else if (diffDays < 7) {
-    return `${diffDays} days ago`
+    return rtf.format(-diffHours, "hour")
+  } else if (diffDays < 30) {
+    return rtf.format(-diffDays, "day")
+  } else if (diffDays < 365) {
+    return rtf.format(-Math.floor(diffDays / 30), "month")
   } else {
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
+    return rtf.format(-Math.floor(diffDays / 365), "year")
   }
 }
 
@@ -78,7 +74,7 @@ export default (() => {
             <ul class="recent-ul">
               {recentPages.map(p => {
                 const date = getDate(cfg, p)
-                const dateText = date ? formatDateToMinutes(date) : ""
+                const dateText = date ? formatRelativeDate(date, cfg.locale) : ""
                 const href = resolveRelative(fileData.slug as FullSlug, p.slug as FullSlug)
                 const title = (p.frontmatter as any)?.title ?? (p.slug as string)?.split("/").pop() ?? "Untitled"
                 return (
@@ -91,9 +87,11 @@ export default (() => {
                           </a>
                         </h3>
                       </div>
-                      {dateText && (
+                      {dateText && date && (
                         <p class="meta">
-                          {dateText}
+                          <time datetime={date.toISOString()} data-relative-date>
+                            {dateText}
+                          </time>
                         </p>
                       )}
                     </div>
@@ -137,5 +135,6 @@ export default (() => {
   }
 
   LatestUpdates.css = style
+  LatestUpdates.afterDOMLoaded = script
   return LatestUpdates
 }) satisfies QuartzComponentConstructor
