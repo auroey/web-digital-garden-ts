@@ -11,13 +11,13 @@ Source repository: [https://github.com/auroey/web-digital-garden-ts](https://git
 The recommended local location is:
 
 ```text
-D:\4_SelfDoc\obs\60_web_digital_garden_ts
+D:\4_SelfDoc\obs\60_web
 ```
 
 Create or edit publishable notes in:
 
 ```text
-D:\4_SelfDoc\obs\60_web_digital_garden_ts\content
+D:\4_SelfDoc\obs\60_web\content
 ```
 
 Then sync them to the website:
