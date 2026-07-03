@@ -22,6 +22,12 @@ D:\4_SelfDoc\obs\60_web\content
 
 Then sync them to the website:
 
+```text
+Double-click sync.cmd
+```
+
+Or run it from PowerShell:
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\sync-content.ps1
 ```
