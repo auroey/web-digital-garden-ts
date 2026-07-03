@@ -4,59 +4,69 @@ date: 2025-08-15
 ---
 # World Model 入门（1）：背景、定义
 
-## 世界模型 is all you need
+## World Model is all you need
 
-其实这个概念早就有人提出了，但最近几年几个大火的领域都表示‘理想与现实差距大大滴’，并甩锅给训练的数据，说训练时用的模拟数据毕竟是庶出，要想效果好，还得用嫡出的真实世界数据。此举可谓一石二鸟，既能给自己训练结果不好洗白，又便于拉到无穷的经费。
+其实 world model 这个概念早就有人提出了，但最近几年几个大火的领域都表示“理想与现实差距大大滴”，并甩锅给训练的数据，说训练时用的 simulated data 毕竟是庶出，要想效果好，还得用嫡出的 real-world data。此举可谓一石二鸟，既能给自己训练结果不好洗白，又便于拉到无穷的经费。
 
-机器人、强化学习、视觉生成、具身智能与自动驾驶等等领域一商量，发现大家都缺真实世界的环境的数据，正好之前有人提出了世界模型这一概念（不过当时叫世界模型的原因仅仅是模型先在‘世界’中模拟，再进行下一步思考。命名简单直接，应用领域单一，没现在这么难懂），大家一拍脑门、统一口径：哎哟我明白了，我彻底明白了，我们得训练世界模型！大家快来给我投资吧！
+Robotics、Reinforcement Learning、Visual Generation、Embodied AI 与 Autonomous Driving 等等领域一商量，发现大家都缺 real-world environment data，正好之前有人提出了 WM 这一概念（不过当时叫 WM 的原因仅仅是模型先在“世界”中模拟，再进行下一步思考。命名简单直接，应用领域单一，没现在这么难懂，详见‘2018 年的 *World Models*’），大家一拍脑门、统一口径：哎哟我明白了，我彻底明白了，我们得训练 World Model！大家快来给我投资吧！
 
-功能上，世界模型可以在这些领域发挥作用：
+功能上，WM 可以在这些领域发挥作用：
 
-- 生成内容：视频、3D 世界、游戏环境。
-- 评估策略：自动驾驶/机器人闭环仿真。
-- 训练 policy：model-based RL、imagination rollout、数据生成。
-- 理解物理：视觉表征、因果推断、常识推理。
+- **Content Generation**：WM 可以学习世界中的空间关系、物体变化和运动规律，然后生成新的内容。
+  - video：预测或生成后续视频画面。
+  - 3D world：生成可从不同视角观察的三维场景。
+  - game environment：根据玩家操作实时生成游戏画面和环境变化。
+- **Policy Evaluation**：这里的 policy 指智能体决定“下一步做什么”的策略。WM 可以充当一个虚拟环境，在不进入真实世界的情况下，测试某个策略是否有效。
+  - Autonomous Driving closed-loop simulation：让自动驾驶系统在模拟环境中连续做出转向、加速、刹车等决策，同时环境根据这些操作不断变化。
+  - Robotics closed-loop simulation：让机器人在虚拟环境中执行抓取、移动、避障等动作，并观察结果。
+- **Policy Training**：WM 还可以帮助训练新的策略。
+  - model-based RL：先学习一个环境模型，再让智能体在这个模型中尝试动作、学习策略，而不是完全依赖真实环境。
+  - imagination rollout：模型在内部“想象”未来。它会模拟执行不同动作后可能出现的一系列状态。
+  - data generation：生成额外的训练数据，例如机器人操作视频、自动驾驶危险场景或游戏交互轨迹。
+- **Physical Understanding**：WM 从数据中能习得世界的结构、关系和变化规律。
+  - visual representation：把图像或视频压缩成对任务有用的内部表示，例如识别物体、位置、运动方向和空间关系。
+  - causal inference：理解什么是原因、什么是结果。例如杯子移动是因为手推了它，而不是因为背景发生了变化。
+  - commonsense reasoning：学习日常世界中的常识。例如松手后物体通常会下落，人不能直接穿过墙壁，遮挡后的物体可能仍然存在。
 
-## 什么是 World Model
+## 什么是 WM
 
-World Model 的定义分为广义和狭义。
+WM 的定义分为广义和狭义。
 
 ### 广义
 
-World Model 是一种特殊的预测模型。
+WM 是一种特殊的 **predictive model**。
 
-模型是对现实中某个事物的抽象表示，有点像java中‘类’的概念，即对某事物的特点进行简化的描述。
+model 是对现实中某个事物的抽象表示，有点像 Java 中“class”的概念，即对某事物的特点进行简化的描述。
 
-预测是‘模型’能完成的任务之一。除了预测，模型还可以进行分类、生成、排序，等等任务。
+prediction 是 model 能完成的任务之一。除了 prediction，model 还可以进行 classification、generation、ranking 等等任务。
 
-预测模型主要用于输出一个能被量化的结果，比如明天的天气；而World Model在预测模型的基础上，还会把**外部的熵增**（例如“动作”）纳入建模过程，重点是模拟出**环境**是如何随着动作和时间演化的。
+predictive model 主要用于输出一个能被量化的结果，比如明天的天气；而 WM 在 predictive model 的基础上，还会把**外部的干预**（例如 action）纳入 modeling 过程，重点是模拟出 **environment** 是如何随着 action 和 time 演化的。
 
-要想能够有理有据地预测，必定要遵循某种法则，否则就是瞎猜。如果遵循的法则是人为制定的，就相当于根据人类已知的知识进行暴力计算解方程，比如传统的数学模型、概率模型、定义好的状态转移模型；如果这个法则大家也不知道、不知道怎么用、不知道如何用更简单的方式进行大一统的表示，就可以让计算机替我们智能地暴力推算出未知的法则，即人工智能。更确切地说，是人工智能这个技术中的一个子集，叫机器学习，它的意思是能从从数据中学习规律，并非简单的模仿人类。进一步看，对于预测环境变化这种非纯数据性的任务，机器学习中叫做深度学习的技术更合适，它的架构擅长处理图片、语音、文本这类非常规数据。
+要想能够有理有据地进行 prediction，必定要遵循某种规则，否则就是瞎猜。如果遵循的法则是人为制定的，就相当于根据人类已知的知识进行暴力计算解方程，比如传统的数学模型、概率模型、定义好的状态转移模型；如果这个法则大家也不知道、不知道怎么用、不知道如何用更简单的方式进行大一统的表示，就可以让计算机替我们智能地暴力推算出未知的法则，即 Artificial Intelligence。更确切地说，是 Artificial Intelligence 这个技术中的一个子集，叫 Machine Learning，它的意思是能从数据中学习规律，并非简单地模仿人类。进一步看，对于预测 environment 的变化这种非纯数据性的任务，Machine Learning 中叫作 Deep Learning 的技术更合适，它的架构擅长处理 image、audio、text 这类 unstructured data。
 
-所以，世界模型整体上分为两类，一类是根据题目中提供的公式求解，一类是自己推导公式后求解（比如基于模型的强化学习中的功能是环境理解的组件），归根到底都是遵循某种规律，根据已有的信息和实时的扰乱信息，去预测环境变化。
+所以，WM 整体上分为两类，一类使用人类明确编写的规则和方程进行模拟，另一类让模型从数据中自主推导出规则和方程（比如 model-based Reinforcement Learning 中用于环境理解的组件就是一种 WM），归根到底都是**遵循某种规律**，根据已有的 信息（和实时的扰乱信息），去**预测 environment 变化**。
 
-但是因为各个模型细微之处又有不同，按照以下两个问题将世界模型分类，会更便于区分各个范式：
+但是因为各个 model 的细微之处又有不同，按照以下两个问题将 WM 分类，会更便于区分各个范式：
 
-- 模型输入动作吗？
-  - 有动作：外部的熵增为0，预测环境变化
-  - 无动作：在推理过程中施加外力，预测环境变化
-  - 不输入但自己学动作：模型从训练数据中自主提取类似动作的变量，预测环境变化
+- model 输入 **action** 吗？
+  - 无 action：无扰乱，直接预测 environment 变化
+  - 有 action：在 inference 过程中施加 action，预测 environment 变化
+  - 不输入但自己学习 action：model 从 training data 中自主提取类似 action 的变量，预测 environment 变化
+- **预测**什么？
+  - pixel or video
+  - latent representation：压缩后的“世界状态”
+  - structured data：按照人能够阅读的数据格式整理出的量化“世界状态”，比如 3D world、physics simulation 或 graph 变化
+  - action：同时预测 future action，即 World Action Model
 
-- 预测什么？
-  - 像素或视频
-  - 隐藏表示：压缩后的“世界状态”
-  - 结构化状态：按照人能够阅读的数据格式整理出的量化的“世界状态”，比如三维世界、物理模拟或graph变化。
-  - 动作：同时预测未来 action，变成 world action model。
+按照此种分类方式，一共可以将 WM 的范式分为 3 × 4 = 12 种。
 
-按照此种分类方式，一共可以将世界模型的范式分为3*4=12种。
-
-也有种特别好理解的儿童版分类方式：语言模型能预测下一个 token，可以说它是文本世界模型。视频模型预测下一段视频，可以说它是视觉世界模型。游戏模型根据玩家输入生成下一帧，也可以叫交互式世界模型。
+也有种特别好理解的儿童版分类方式：Language Model 能预测下一个 token，可以说它是 Text World Model。Video Model 预测下一段 video，可以说它是 Visual World Model。Game Model 根据玩家输入生成下一帧，也可以叫 Interactive World Model。
 
 ### 狭义
 
-在不特指时，我们日常提到的WM一般是指action-conditioned dynamics world model，预测“我做了这个动作以后，世界会怎么变”。
+在不特指时，我们日常提到的 WM 一般是指 action-conditioned dynamics world model，预测“我做了这个 action 以后，world 会怎么变”。
 
-
+# World Model 入门（2）：演化、先行门派
 
 
 
