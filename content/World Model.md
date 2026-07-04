@@ -1,6 +1,7 @@
 ---
 title: World Model
 date: 2025-08-15
+pinned: true
 ---
 # World Model 入门（1）：背景、定义
 
