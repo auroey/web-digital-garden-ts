@@ -5,6 +5,9 @@ import { FullSlug } from "../util/path"
 import { classNames } from "../util/lang"
 import { getDate } from "./Date"
 import { GlobalConfiguration } from "../cfg"
+import { i18n } from "../i18n"
+import { ValidLocale } from "../i18n"
+import readingTime from "reading-time"
 import style from "./styles/latestUpdates.scss"
 import script from "./scripts/latestUpdates.inline"
 
@@ -42,6 +45,19 @@ function sortByInlinks(a: QuartzPluginData, b: QuartzPluginData) {
   return inlinksB - inlinksA
 }
 
+function getTitle(p: QuartzPluginData): string {
+  return (p.frontmatter as any)?.title ?? (p.slug as string)?.split("/").pop() ?? "Untitled"
+}
+
+function getReadingTime(p: QuartzPluginData, locale: ValidLocale): string | undefined {
+  if (!p.text) return undefined
+
+  const { minutes } = readingTime(p.text)
+  return i18n(locale).components.contentMeta.readingTime({
+    minutes: Math.ceil(minutes),
+  })
+}
+
 export default (() => {
   const LatestUpdates: QuartzComponent = ({
     allFiles,
@@ -59,12 +75,17 @@ export default (() => {
       .sort((a, b) => sortByRecent(a, b, cfg))
       .slice(0, 2)
 
+    const pinnedPages = pages
+      .filter(p => (p.frontmatter as any)?.pinned === true)
+      .sort((a, b) => sortByRecent(a, b, cfg))
+      .slice(0, 4)
+
     // Recommended entries: sort by number of references
     const popularPages = pages
       .sort(sortByInlinks)
       .slice(0, 4)
 
-    if (recentPages.length === 0 && popularPages.length === 0) return null
+    if (recentPages.length === 0 && pinnedPages.length === 0 && popularPages.length === 0) return null
 
     return (
       <div class={classNames(displayClass, "latest-updates")}>
@@ -76,7 +97,7 @@ export default (() => {
                 const date = getDate(cfg, p)
                 const dateText = date ? formatRelativeDate(date, cfg.locale) : ""
                 const href = resolveRelative(fileData.slug as FullSlug, p.slug as FullSlug)
-                const title = (p.frontmatter as any)?.title ?? (p.slug as string)?.split("/").pop() ?? "Untitled"
+                const title = getTitle(p)
                 return (
                   <li class="recent-li">
                     <div class="section">
@@ -102,6 +123,37 @@ export default (() => {
           </div>
         )}
 
+        {pinnedPages.length > 0 && (
+          <div class="mb-8">
+            <h3>Pinned</h3>
+            <ul class="recent-ul">
+              {pinnedPages.map(p => {
+                const href = resolveRelative(fileData.slug as FullSlug, p.slug as FullSlug)
+                const title = getTitle(p)
+                const readingTimeText = getReadingTime(p, cfg.locale)
+                return (
+                  <li class="recent-li">
+                    <div class="section">
+                      <div class="desc">
+                        <h3>
+                          <a href={href} class="internal">
+                            {title}
+                          </a>
+                        </h3>
+                      </div>
+                      {readingTimeText && (
+                        <p class="meta">
+                          {readingTimeText}
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )}
+
         {popularPages.length > 0 && (
           <div>
             <h3>Recommended</h3>
@@ -109,7 +161,7 @@ export default (() => {
               {popularPages.map(p => {
                 const inlinksCount = (p.links as string[])?.length ?? 0
                 const href = resolveRelative(fileData.slug as FullSlug, p.slug as FullSlug)
-                const title = (p.frontmatter as any)?.title ?? (p.slug as string)?.split("/").pop() ?? "Untitled"
+                const title = getTitle(p)
                 return (
                   <li class="recent-li">
                     <div class="section">
