@@ -42,31 +42,38 @@ prediction 是 model 能完成的任务之一。除了 prediction，model 还可
 
 predictive model 主要用于输出一个能被量化的结果，比如明天的天气；而 WM 在 predictive model 的基础上，还会把**外部的干预**（例如 action）纳入 modeling 过程，重点是模拟出 **environment** 是如何随着 action 和 time 演化的。
 
-要想能够有理有据地进行 prediction，必定要遵循某种规则，否则就是瞎猜。如果遵循的法则是人为制定的，就相当于根据人类已知的知识进行暴力计算解方程，比如传统的数学模型、概率模型、定义好的状态转移模型；如果这个法则大家也不知道、不知道怎么用、不知道如何用更简单的方式进行大一统的表示，就可以让计算机替我们智能地暴力推算出未知的法则，即 Artificial Intelligence。更确切地说，是 Artificial Intelligence 这个技术中的一个子集，叫 Machine Learning，它的意思是能从数据中学习规律，并非简单地模仿人类。进一步看，对于预测 environment 的变化这种非纯数据性的任务，Machine Learning 中叫作 Deep Learning 的技术更合适，它的架构擅长处理 image、audio、text 这类 unstructured data。
+要想能够有理有据地进行 prediction，必定要遵循某种规则，否则就是瞎猜。如果遵循的**法则是人为制定的**，就相当于根据人类已知的知识进行暴力计算解方程，比如传统的数学模型、概率模型、定义好的状态转移模型；如果这个法则大家也不知道、不知道怎么用、不知道如何用更简单的方式进行大一统的表示，就可以让计算机替我们智能地暴力推算出未知的法则，即 Artificial Intelligence。更确切地说，是 Artificial Intelligence 这个技术中的一个子集，叫 Machine Learning，它的意思是能**从数据中学习规律**，并非简单地模仿人类。进一步看，对于预测 environment 的变化这种非纯数据性的任务，Machine Learning 中叫作 Deep Learning 的技术更合适，它的架构擅长处理 image、audio、text 这类 unstructured data。
 
 所以，WM 整体上分为两类，一类使用人类明确编写的规则和方程进行模拟，另一类让模型从数据中自主推导出规则和方程（比如 model-based Reinforcement Learning 中用于环境理解的组件就是一种 WM），归根到底都是**遵循某种规律**，根据已有的 信息（和实时的扰乱信息），去**预测 environment 变化**。
 
 但是因为各个 WM 的细微之处又有不同，按照以下两个问题将 WM 分类，会更便于区分各个范式：
 
-- WM 输入 **action** 吗？
-  - 无 action：无扰乱，直接预测 environment 变化
-  - 有 action：在 inference 过程中施加 action，预测 environment 变化
-  - 不输入但自己学习 action：model 从 training data 中自主提取类似 action 的变量，预测 environment 变化
+- WM 输入/输出 **action** 吗？
+  - 输入
+    - 无 action：无扰乱，直接预测 environment 变化
+    - 有 action：在 inference 过程中施加 action，预测 environment 变化
+    - 不输入但自己学习 action：model 从 training data 中自主提取类似 action 的变量，预测 environment 变化
+  - 输出
+    - 除了 environment 还预测 action：同时预测 future action，即 World Action Model
 - **预测**什么？
-  - pixel or video
-  - latent representation：压缩后的“世界状态”
-  - structured data：按照人能够阅读的数据格式整理出的量化“世界状态”，比如 3D world、physics simulation 或 graph 变化
-  - action：同时预测 future action，即 World Action Model
+  - 具象的
+	  - pixel or video
+	  - structured data：按照人能够阅读的数据格式整理出的量化“世界状态”，比如物体、关节、occupancy、graph 或 keypoint 的变化
+	  - 3D world、physics simulation
+  - 抽象的
+	  - latent representation：压缩后的“世界状态”
 
-按照此种分类方式，一共可以将 WM 的范式分为 3 × 4 = 12 种。
+按照此种分类方式，一共可以将 WM 的范式分为 4 × 4 = 16 种 ↓
 
-也有种特别好理解的儿童版分类方式：Language Model 能预测下一个 token，可以说它是 Text World Model。Video Model 预测下一段 video，可以说它是 Visual World Model。Game Model 根据玩家输入生成下一帧，也可以叫 Interactive World Model。
+![World model mental map](https://liyang.page/assets/img/world-model/world-model-map.svg)
+
+也有种特别好理解的儿童版分类方式：Language Model 能预测下一个 token，可以说它是 Text World Model。Video Model 预测下一段 video，可以说它是 Video World Model。Game Model 根据玩家输入生成下一帧，也可以叫 Interactive World Model。
 
 ### 狭义
 
 在不特指时，我们日常提到的 WM 一般是指 action-conditioned dynamics world model，预测“我做了这个 action 以后，world 会怎么变”。
 
-# World Model 入门（2）：演化、先行门派
+# World Model 入门（2）：演化、现行派别
 
 TBC.
 
