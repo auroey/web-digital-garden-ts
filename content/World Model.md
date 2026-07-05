@@ -9,23 +9,35 @@ pinned: true
 
 Robotics、Reinforcement Learning、Visual Generation、Embodied AI 与 Autonomous Driving 等等领域一商量，发现大家都缺 real-world environment data，正好之前有人提出了 WM 这一概念（不过当时叫 WM 的原因仅仅是模型先在“世界”中模拟，再进行下一步思考。命名简单直接，应用领域单一，没现在这么难懂，详见‘2018 年的 *World Models*’），大家一拍脑门、统一口径：哎哟我明白了，我彻底明白了，我们得训练 World Model！大家快来给我投资吧！
 
-功能上，WM 可以在这些领域发挥作用：
+功能上，WM 有这些**能力**：
 
-- **Content Generation**：WM 可以学习世界中的空间关系、物体变化和运动规律，然后生成新的内容。
-  - video：预测或生成后续视频画面。
-  - 3D world：生成可从不同视角观察的三维场景。
-  - game environment：根据玩家操作实时生成游戏画面和环境变化。
-- **Policy Evaluation**：这里的 policy 指智能体决定“下一步做什么”的策略。WM 可以充当一个虚拟环境，在不进入真实世界的情况下，测试某个策略是否有效。
-  - Autonomous Driving closed-loop simulation：让自动驾驶系统在模拟环境中连续做出转向、加速、刹车等决策，同时环境根据这些操作不断变化。
-  - Robotics closed-loop simulation：让机器人在虚拟环境中执行抓取、移动、避障等动作，并观察结果。
-- **Policy Training**：WM 还可以帮助训练新的策略。
-  - model-based RL：先学习一个环境模型，再让智能体在这个模型中尝试动作、学习策略，而不是完全依赖真实环境。
-  - imagination rollout：模型在内部“想象”未来。它会模拟执行不同动作后可能出现的一系列状态。
-  - data generation：生成额外的训练数据，例如机器人操作视频、自动驾驶危险场景或游戏交互轨迹。
-- **Physical Understanding**：WM 从数据中能习得世界的结构、关系和变化规律。
-  - visual representation：把图像或视频压缩成对任务有用的内部表示，例如识别物体、位置、运动方向和空间关系。
-  - causal inference：理解什么是原因、什么是结果。例如杯子移动是因为手推了它，而不是因为背景发生了变化。
-  - commonsense reasoning：学习日常世界中的常识。例如松手后物体通常会下落，人不能直接穿过墙壁，遮挡后的物体可能仍然存在。
+- 预测未来（Future Prediction）：WM 可以根据当前环境、历史信息和外部条件，预测环境接下来会如何变化。
+  - Video prediction：预测后续视频画面。
+  - Imagination rollout：模型在内部“想象”未来，模拟执行不同动作后可能出现的一系列状态。
+  - Environment dynamics prediction：预测环境如何随着时间自然变化，或者在动作影响下发生变化。
+- 表示空间和状态（Space and State Representation）：WM 可以把复杂的现实环境整理成便于模型处理的内部表示。
+  - Visual representation：把图像或视频压缩成对任务有用的内部表示，例如物体、位置、运动方向和空间关系。
+  - 3D world representation：表示可从不同视角观察的三维场景，以及场景中的空间结构。
+  - Structured state representation：用物体、关节、关键点、占用空间或图结构等形式表示当前世界状态。
+- 学习动作后果（Action-effect Learning）：WM 可以学习某个动作会怎样改变环境。
+- 学习物体与因果关系（Object and Causal Understanding）：WM 可以从数据中学习世界中的物体、关系和变化规律。
+  - Causal inference：尝试区分什么是原因、什么是结果。例如，杯子移动是因为手推了它，而不是因为背景发生了变化。
+  - Commonsense reasoning：学习日常世界中的常识。例如，松手后物体通常会下落，人不能直接穿过墙壁，被遮挡的物体可能仍然存在。
+  - Object relations：学习物体之间的位置、遮挡、接触和运动关系。
+
+可以在这些**领域**发挥作用：
+
+- 内容生成（Content Generation）：WM 可以利用学到的空间关系、物体变化和运动规律生成新的内容。
+  - Video：生成后续视频画面。
+  - 3D world：生成可以从不同视角观察的三维场景。
+  - Game environment：根据玩家操作实时生成游戏画面和环境变化。
+- 策略评估（Policy Evaluation）：这里的 policy 指智能体决定“下一步做什么”的策略。WM 可以充当虚拟环境，在不进入真实世界的情况下测试某个策略是否有效。
+  - Autonomous Driving closed-loop simulation：让自动驾驶系统在模拟环境中连续做出转向、加速和刹车等决策，同时环境根据这些操作不断变化。
+  - Robotics closed-loop simulation：让机器人在虚拟环境中执行抓取、移动和避障等动作，并观察其结果。
+- 策略训练（Policy Training）：WM 可以为智能体提供可反复交互的模拟环境，帮助训练新的策略。
+  - Model-based RL：先学习一个环境模型，再让智能体在模型中尝试动作、学习策略，而不是完全依赖真实环境。
+- 数据生成（Data Generation）：WM 可以生成额外的训练与测试数据。
+- 规划和控制（Planning and Control）：WM 可以先预测不同动作可能产生的结果，再帮助智能体选择更合适的动作。
 
 ## 什么是 WM
 
@@ -41,7 +53,7 @@ prediction 是 model 能完成的任务之一。除了 prediction，model 还可
 
 predictive model 主要用于输出一个能被量化的结果，比如明天的天气；而 WM 在 predictive model 的基础上，还会把**外部的干预**（例如 action）纳入 modeling 过程，重点是模拟出 **environment** 是如何随着 action 和 time 演化的。
 
-要想能够有理有据地进行 prediction，必定要遵循某种规则，否则就是瞎猜。如果遵循的**法则是人为制定的**，就相当于根据人类已知的知识进行暴力计算解方程，比如传统的数学模型、概率模型、定义好的状态转移模型（如马尔可夫）；如果这个法则大家也不知道、不知道怎么用、不知道如何用更简单的方式进行大一统的表示，就可以让计算机替我们智能地暴力推算出未知的法则，即 Artificial Intelligence。更确切地说，是 Artificial Intelligence 这个技术中的一个子集，叫 Machine Learning，它的意思是能**从数据中学习规律**，并非简单地模仿人类。进一步看，对于预测 environment 的变化这种非纯数据性的任务，Machine Learning 中叫作 Deep Learning 的技术更合适，它的架构擅长处理 image、audio、text 这类 unstructured data。
+要想能够有理有据地进行 prediction，必定要遵循某种规则，否则就是瞎猜。如果遵循的**法则是人为制定的**，就相当于根据人类已知的知识进行暴力计算解方程，比如传统的数学模型、概率模型、基于马尔可夫假设定义的状态转移模型；如果这个法则大家也不知道、不知道怎么用、不知道如何用更简单的方式进行大一统的表示，就可以让计算机替我们智能地暴力推算出未知的法则，即 Artificial Intelligence。更确切地说，是 Artificial Intelligence 这个技术中的一个子集，叫 Machine Learning，它的意思是能**从数据中学习规律**，并非简单地模仿人类。进一步看，对于预测 environment 的变化这种非纯数据性的任务，Machine Learning 中叫作 Deep Learning 的技术更合适，它的架构擅长处理 image、audio、text 这类 unstructured data。
 
 所以，WM 整体上分为两类，一类使用人类明确编写的规则和方程进行模拟，另一类让模型从数据中自主推导出规则和方程（比如 model-based Reinforcement Learning 中用于环境理解的组件就是一种 WM），归根到底都是**遵循某种规律**，根据已有的 信息（和实时的扰乱信息），去**预测 environment 变化**。
 
@@ -62,13 +74,15 @@ predictive model 主要用于输出一个能被量化的结果，比如明天的
   - 抽象的
 	  - latent representation：压缩后的“世界状态”
 
-按照此种分类方式，一共可以将 WM 的范式分为 4 × 4 = 16 种 ↓
+按照此种分类方式，大致可以将 WM 的范式分为以下称呼 ↓
 
 ![World model mental map](https://liyang.page/assets/img/world-model/world-model-map.svg)
 
 也有种特别好理解的儿童版分类方式：Language Model 能预测下一个 token，可以说它是 Text World Model。Video Model 预测下一段 video，可以说它是 Video World Model。Game Model 根据玩家输入生成下一帧，也可以叫 Interactive World Model。
 
 ### 狭义
+
+在各个领域 WM 的称呼和定义亦有不同，因为各个领域都有其独需的 predictive model 。
 
 在不特指时，我们日常提到的 WM 一般是指 action-conditioned dynamics world model，预测“我做了这个 action 以后，world 会怎么变”。
 
@@ -78,7 +92,7 @@ predictive model 主要用于输出一个能被量化的结果，比如明天的
 
 以下是功能的演变过程：
 
-最早有人提出有关人脑思考方式的一个猜想：人类会在脑中建立一个缩小版的世界，用它理解事情、预测未来。不过这个猜想并没有格外突出的学术价值，顶多给人研究灵感。
+最早有人提出有关人脑思考方式的一个猜想：人类会在脑中建立一个缩小版的世界，用它理解事情、预测未来。
 
 到了现代人工智能阶段，研究者开始让机器自己学习环境的变化规律。例如，一个机器如想自动驾驶，不用每次都在真实道路上尝试，可以先在内部模拟。具体而言，用来让小车学会驾驶的系统可分为这三个部分：负责看懂画面、负责记住世界怎样变化、负责决定下一步做什么。
 
@@ -88,24 +102,23 @@ predictive model 主要用于输出一个能被量化的结果，比如明天的
 
 近些年，world model 不只能单纯地作为 RL 中的 dynamics 部分，也能生成可交互视频、建模 3D 环境、作为 foundation model 等等。
 
-题外话，解释下 RL dynamics 和 foundation model：RL是一种机器学习方法，根据本轮决策结果与环境的互动优劣来改善下一轮决策结果。dynamics 在rl中一般指用来优化决策的法则，也就是模型如何‘通过与环境的互动优劣来改善下一轮决策结果’。世界模型就能从与环境交互的数据里学出 dynamics（环境如何随动作变化），从而辅助rl的决策的优化。基础模型通常指在海量数据上预训练、可迁移到多种任务的通用模型。尤其在物理 AI 场景里，厂商会把大规模预训练的世界模型称为 **world foundation model**，这类模型先学到通用的世界表示，再针对机器人、自动驾驶等下游任务做微调。
+题外话，解释下 RL dynamics 和 foundation model：RL是一种机器学习方法，根据本轮决策结果与环境的互动优劣来改善下一轮决策结果。dynamics 在rl中一般指Dynamics 指环境怎样从当前状态、在动作作用下转移到下一状态，也就是模型如何‘通过与环境的互动优劣来得到改善后的下一轮决策结果’。世界模型就能从与环境交互的数据里学出 dynamics（环境如何随动作变化），从而辅助rl的决策的优化。基础模型通常指在海量数据上预训练、可迁移到多种任务的通用模型。尤其在物理 AI 场景里，厂商会把大规模预训练的世界模型称为 **world foundation model**，这类模型先学到通用的世界表示，再针对机器人、自动驾驶等下游任务做微调。
 
 ## 目前学术界的派别
 
-简言之，做如下分类：
+简言之，从三个维度区分不同 world model：
 
-- （生成了什么）具象生成派：力图用世界模型呈现世界的外表。
-  - Video Generation
-  - 3D／4D Spatial World
-- （生成了什么）理解规则派：力图用世界模型的规律表示世界。
-  - JEPA／Representation Prediction
-  - Structured State Dynamics
-- （目的是什么）辅助决策派：将世界模型作为智能体训练决策能力的平台。
-  - Reinforcement Learning and Planning
-  - Embodied Action and World Action Model
-- （如何做到的）物理引擎与神经模型混合派：用现有的规则明确的物理模型辅助神经网络得到产出。
+- 表示形式
+  - 具象生成：力图用世界模型呈现世界的外表。
+    - Video Generation
+    - 3D／4D Spatial World
 
-## 各派系优缺点
+  - 理解规则：力图用世界模型的规律表示世界。
+    - JEPA／Representation Prediction
+    - Structured State Dynamics
+
+- 使用目的：内容生成、规划、策略训练、控制。
+- 实现机制：学习模型、物理引擎、混合模型。
 
 视频生成最直观，适合让人眼去观察，但对算力的需求很大，而且模型内部对世界规律的理解浅薄；三维生成的稳定性最强，适合进一步操作数据本身，但同样需要大量算力、数据也更少；在潜空间中表示并预测省算力、并能忽略信噪，但可解释性不高，不好优化；让模型习得状态转移方程更符合科学的自然规律，上限最高（我认为），但因为涉及到知识的不可知性，发展很困难，在某种程度上与‘潜空间表示’面临同样的困境。
 
