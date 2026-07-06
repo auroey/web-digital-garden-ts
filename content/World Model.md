@@ -132,7 +132,16 @@ predictive model 主要用于输出一个能被量化的结果，比如明天的
 
 ## 范式赏析
 
-
+| 阶段        | 代表论文 / 系统                      | 核心问题                                          |
+| --------- | ------------------------------ | --------------------------------------------- |
+| 2018      | _[[World Models]]_             | 能不能在模型“梦境”中训练 agent                           |
+| 2019-2023 | PlaNet, Dreamer V1/V2/V3       | 从像素学 latent dynamics，并在想象 rollout 里学 policy   |
+| 2020-2024 | MuZero, EfficientZero, TD-MPC2 | 不必重建像素，只预测 reward/value/policy 或控制相关状态        |
+| 2023-2024 | IRIS, STORM, DIAMOND           | Transformer / diffusion 进入 world model        |
+| 2023-2025 | I-JEPA, V-JEPA, V-JEPA 2       | 不预测像素，预测语义/物理表征                               |
+| 2024-2025 | Genie, UniSim, Cosmos, Marble  | 世界模型变成可交互/可生成/可产品化的基础模型                       |
+| 2025      | Robotic World Model, RWM-U     | 机器人控制里解决 long-horizon drift 与不确定性             |
+| 2025-2026 | Motus, DreamDojo, DreamZero    | 从 world model 走向 world action model，同步建模视频和动作 |
 
 ## Ref
 
