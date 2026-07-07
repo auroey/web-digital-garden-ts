@@ -9,7 +9,9 @@
 - **大型世界模型**：学习理解环境、记住变化、预测未来；
 - **小型控制器**：根据世界模型提供的信息决定动作。
 
-前置知识：[[Evolution Strategies]]
+前置知识：
+- [[Evolution Strategies]]
+- [[Mixture Density Network，MDN]]
 
 ---
 
