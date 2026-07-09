@@ -19,3 +19,6 @@ Partially Observable Markov Decision Process (POMDP)
 
 MPC (Model Predictive Control，模型预测控制)
 
+![image.png](https://kennels.oss-cn-beijing.aliyuncs.com/img_for_typora/202607090914396.png)
+
+
