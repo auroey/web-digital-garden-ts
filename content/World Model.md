@@ -3,6 +3,16 @@ title: World Model
 date: 2025-08-15
 pinned: true
 ---
+```
+计算机科学
+└── 人工智能
+    └── 空间智能
+        └── 世界模型
+            └── 生成式世界模型
+                └── 生成式世界模拟器
+                    └── 实时、可交互、可编辑、物理一致的场景生成
+```
+
 ## World Model is all you need
 
 其实 world model 这个概念早就有人提出了，但最近几年几个大火的领域都表示“理想与现实差距大大滴”，并甩锅给训练的数据，说训练时用的 simulated data 毕竟是庶出，要想效果好，还得用嫡出的 real-world data。此举可谓一石二鸟，既能给自己训练结果不好洗白，又便于拉到无穷的经费。
@@ -45,13 +55,9 @@ WM 的定义分为广义和狭义。
 
 ### 广义
 
-WM 是一种特殊的 **predictive model**。
+WM 是一种理解世界当前状态 (**Internal Representations**) 或预测其未来动态 (**Future Predictions**)的工具。
 
-model 是对现实中某个事物的抽象表示，有点像 Java 中“class”的概念，即对某事物的特点进行简化的描述。
-
-prediction 是 model 能完成的任务之一。除了 prediction，model 还可以进行 classification、generation、ranking 等等任务。
-
-predictive model 主要用于输出一个能被量化的结果，比如明天的天气；而 WM 在 predictive model 的基础上，还会把**外部的干预**（例如 action）纳入 modeling 过程，重点是模拟出 **environment** 是如何随着 action 和 time 演化的。
+在进行预测任务时，predictive model 主要用于输出一个能被量化的结果，比如明天的天气；而 WM 在 predictive model 的基础上，还可以把**外部的干预**（例如 action）纳入 modeling 过程，重点是模拟出 **environment** 是如何随着 action 和 time 演化的。
 
 要想能够有理有据地进行 prediction，必定要遵循某种规则，否则就是瞎猜。如果遵循的**法则是人为制定的**，就相当于根据人类已知的知识进行暴力计算解方程，比如传统的数学模型、概率模型、基于马尔可夫假设定义的状态转移模型；如果这个法则大家也不知道、不知道怎么用、不知道如何用更简单的方式进行大一统的表示，就可以让计算机替我们智能地暴力推算出未知的法则，即 Artificial Intelligence。更确切地说，是 Artificial Intelligence 这个技术中的一个子集，叫 Machine Learning，它的意思是能**从数据中学习规律**，并非简单地模仿人类。进一步看，对于预测 environment 的变化这种非纯数据性的任务，Machine Learning 中叫作 Deep Learning 的技术更合适，它的架构擅长处理 image、audio、text 这类 unstructured data。
 
@@ -135,7 +141,7 @@ predictive model 主要用于输出一个能被量化的结果，比如明天的
 | 阶段        | 代表论文 / 系统                      | 核心问题                                          |
 | --------- | ------------------------------ | --------------------------------------------- |
 | 2018      | _[[World Models]]_             | 能不能在模型“梦境”中训练 agent                           |
-| 2019-2023 | PlaNet, Dreamer V1/V2/V3       | 从像素学 latent dynamics，并在想象 rollout 里学 policy   |
+| 2019-2023 | [[PlaNet]], Dreamer V1/V2/V3   | 从像素学 latent dynamics，并在想象 rollout 里学 policy   |
 | 2020-2024 | MuZero, EfficientZero, TD-MPC2 | 不必重建像素，只预测 reward/value/policy 或控制相关状态        |
 | 2023-2024 | IRIS, STORM, DIAMOND           | Transformer / diffusion 进入 world model        |
 | 2023-2025 | I-JEPA, V-JEPA, V-JEPA 2       | 不预测像素，预测语义/物理表征                               |

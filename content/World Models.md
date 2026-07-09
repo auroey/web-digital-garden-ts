@@ -1,5 +1,6 @@
 原文：[World Models](https://worldmodels.github.io/)
 
+供参考笔记：[用于决策的世界模型 -- 论文 World Models (2018) & PlaNet (2019) 讲解 - 伊犁纯流莱 - 博客园](https://www.cnblogs.com/tshaaa/p/18670731)
 # 思想架构
 
 本文完整提出 agent 先理解世界再行动的流程，即先观察，再推测，然后行动。
@@ -22,6 +23,8 @@
 ![img](https://worldmodels.github.io/assets/world_model_overview.svg)
 
 Our agent consists of three components that work closely together: Vision (V), Memory (M), and Controller (C).
+
+World Model: V+M
 
 ---
 
